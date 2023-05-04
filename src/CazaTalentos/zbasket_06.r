@@ -11,8 +11,8 @@ ftirar  <- function( prob, qty ){
 
 
 #defino los jugadores
-jordan    <- 0.85
-peloton   <- rep( 0.6, 99 )  #jugadores identicos
+jordan    <- 0.7
+peloton   <- rep( 0.6, 59 )  #jugadores identicos
 jugadores <- c( jordan, peloton )
 
 

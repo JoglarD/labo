@@ -1,3 +1,4 @@
+# Experimentos Colaborativos Default
 # Workflow  Data Drifting repair
 
 #require vm con
@@ -15,13 +16,14 @@ require("yaml")
 
 #Parametros del script
 PARAM  <- list()
-PARAM$experimento  <- "DR5210"
+PARAM$experimento  <- "DR6210"
 
-PARAM$exp_input  <- "CA5110"
+PARAM$exp_input  <- "CA6110"
 
-PARAM$variables_intrames  <- FALSE
+PARAM$variables_intrames  <- TRUE   # atencion eesto esta en TRUEEEEEE
+
 #valores posibles  "ninguno" "rank_simple" , "rank_cero_fijo" , "deflacion"
-PARAM$metodo  <- "deflacion"
+PARAM$metodo  <- "rank_cero_fijo"
 # FIN Parametros del script
 
 
@@ -208,7 +210,7 @@ setwd(paste0( "./exp/", PARAM$experimento, "/"))   #Establezco el Working Direct
 write_yaml( PARAM, file= "parametros.yml" )   #escribo parametros utilizados
 
 #primero agrego las variables manuales
-if( PARAM$variables_intrames )  AgregarVariables( dataset )
+if( PARAM$variables_intrames )  AgregarVariables_IntraMes( dataset )
 
 #ordeno de esta forma por el ranking
 setorder( dataset, foto_mes, numero_de_cliente )

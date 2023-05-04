@@ -1,32 +1,27 @@
+# Definir el número de tiros y de adolescentes
+num_tiros <- 100
+num_adolescentes <- 100
 
+# Crear una matriz para registrar los resultados de los tiros de cada adolescente
+resultados <- matrix(0, nrow = num_adolescentes, ncol = num_tiros)
 
-set.seed( 102191 )
-
-#calcula cuantos encestes logra un jugador con indice de enceste prob
-#que hace qyt tiros libres
-
-ftirar  <- function( prob, qty ){
-  return( sum( runif(qty) < prob ) )
+# Simular los tiros de cada adolescente
+for (i in 1:num_adolescentes) {
+  for (j in 1:num_tiros) {
+    # Lanzar un tiro y registrar si fue acertado o no
+    if (runif(1) < 0.5) {
+      resultados[i,j] <- 1
+    }
+  }
 }
 
-
-#defino los jugadores
-jugadores  <- rep( 0.7, 100 )
-
-
-
-
-suma_diferencias <- 0
-
-for( i in 1:10000 ){
-  vaciertos  <- mapply( ftirar, jugadores, 100 )  #cada jugador tira 100 tiros libres
-  mejor  <- which.max( vaciertos )
-  aciertos_torneo  <- vaciertos[ mejor ]
-
-  aciertos_segunda  <- ftirar( jugadores[mejor], 100 )
-
-  suma_diferencias  <- suma_diferencias +  (aciertos_torneo - aciertos_segunda )
+# Eliminar a los adolescentes que erraron los tiros libres
+while (sum(!rowSums(resultados) == num_tiros) > 5) {
+  resultados[!rowSums(resultados) == num_tiros,] <- 0
 }
 
+# Registra los resultados de los 5 sobrevivientes
+resultados_sobrevivientes <- resultados[!rowSums(resultados) == 0,]
 
-print(  suma_diferencias / 10000 )
+# Imprime los resultados de los 5 sobrevivientes
+print(resultados_sobrevivientes)
